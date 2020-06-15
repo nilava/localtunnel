@@ -42,6 +42,10 @@ const { argv } = yargs
   .option('allow-invalid-cert', {
     describe: 'Disable certificate checks for your local HTTPS server (ignore cert/key/ca options)',
   })
+  .options('server-ssl-verify', {
+    describe: 'Disable certificate checks for your localtunnel HTTPS server (ignore cert/key/ca options)',
+    default: 'true',
+  })
   .options('o', {
     alias: 'open',
     describe: 'Opens the tunnel URL in your browser',
@@ -52,6 +56,7 @@ const { argv } = yargs
   .require('port')
   .boolean('local-https')
   .boolean('allow-invalid-cert')
+  .boolean('server-ssl-verify')
   .boolean('print-requests')
   .help('help', 'Show this help and exit')
   .version(version);
@@ -73,6 +78,7 @@ if (typeof argv.port !== 'number') {
     local_key: argv.localKey,
     local_ca: argv.localCa,
     allow_invalid_cert: argv.allowInvalidCert,
+    server_ssl_verify: argv.serverSslVerify,
   }).catch(err => {
     throw err;
   });
